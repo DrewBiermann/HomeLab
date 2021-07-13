@@ -276,10 +276,10 @@ services:
     networks:
       - t2_proxy
       - default
-    #security_opt:
-    #  - no-new-privileges:true
-    ports:
-      - '3000:3000'
+    security_opt:
+      - no-new-privileges:true
+    #ports:
+    #  - '3000:3000'
     user: "0"
     volumes:
       - $DOCKERDIR/appdata/grafana:/var/lib/grafana
@@ -289,7 +289,7 @@ services:
       - "traefik.enable=true"
       ## HTTP Routers
       - "traefik.http.routers.grafana-rtr.entrypoints=https"
-      - "traefik.http.routers.grafana-rtr.rule=Host(`grafana.$DOMAINNAME`)"
+      - "traefik.http.routers.grafana-rtr.rule=Host(`grafana.$DOMAINNAME/login`)"
       - "traefik.http.routers.grafana-rtr.tls=true"
       ## Middlewares
       - "traefik.http.routers.grafana-rtr.middlewares=chain-oauth@file,add-grafana"
