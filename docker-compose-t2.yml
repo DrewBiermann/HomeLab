@@ -277,8 +277,8 @@ services:
       - t2_proxy
     security_opt:
       - no-new-privileges:true
-  # ports:
-  #   - "$GRAFANA_PORT:3000"
+    ports:
+      - "127.0.0.1:3000:3000"
     user: "0"
     volumes:
       - $DOCKERDIR/appdata/grafana:/var/lib/grafana
