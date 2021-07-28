@@ -293,7 +293,7 @@ services:
       - "traefik.http.routers.grafana-rtr.tls=true"
       ## Middlewares
       - "traefik.http.routers.grafana-rtr.middlewares=chain-oauth@file,add-grafana"
-      - "traefik.http.middlewares.add-grafana.addPrefix.prefix=/grafana"
+      - "traefik.http.middlewares.add-grafana.addPrefix.prefix=/login"
       ## HTTP Services
       - "traefik.http.routers.grafana-rtr.service=grafana-svc"
       - "traefik.http.services.grafana-svc.loadbalancer.server.port=3000"
