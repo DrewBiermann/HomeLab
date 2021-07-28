@@ -276,10 +276,15 @@ services:
     networks:
       - t2_proxy
       - default
+    security_opt:
+      - no-new-privileges:true
     #ports:
     #  - '3000:3000'
+    user: "0"
     volumes:
       - $DOCKERDIR/appdata/grafana:/var/lib/grafana
+    environment:
+       GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource,grafana-worldmap-panel,grafana-piechart-panel"
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
