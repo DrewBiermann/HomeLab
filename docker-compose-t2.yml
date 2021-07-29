@@ -282,7 +282,8 @@ services:
     #  - '3000:3000'
     user: "0"
     volumes:
-      - $DOCKERDIR/appdata/grafana:/var/lib/grafana
+      - $DOCKERDIR/grafana/var:/var/lib/grafana
+      - $DOCKERDIR/grafana/etc:/etc/grafana
     environment:
        GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource,grafana-worldmap-panel,grafana-piechart-panel"
     labels:
