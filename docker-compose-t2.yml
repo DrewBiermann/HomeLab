@@ -283,12 +283,12 @@ services:
     user: "0"
     volumes:
       - $DOCKERDIR/grafana/var:/var/lib/grafana
-      - $DOCKERDIR/grafana/etc:/etc/grafana
+     # - $DOCKERDIR/grafana/etc:/etc/grafana
     environment:
        #GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource,grafana-worldmap-panel,grafana-piechart-panel"
-       GF_SERVER_ROOT_URL: "https://grafana.drewbiermann.com/grafana/"
-       GF_SERVER_DOMAIN: "drewbiermann.com"
-       GF_SERVER_SERVE_FROM_SUB_PATH: "true"
+       GF_SERVER_ROOT_URL=https://grafana.drewbiermann.com/grafana/
+       GF_SERVER_DOMAIN=drewbiermann.com
+       GF_SERVER_SERVE_FROM_SUB_PATH=true
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
