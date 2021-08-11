@@ -282,23 +282,24 @@ services:
     #  - '3000:3000'
     user: "0"
     volumes:
-      - $DOCKERDIR/grafana/var:/var/lib/grafana
+      - $DOCKERDIR/appdata/grafana:/var/lib/grafana
      # - $DOCKERDIR/grafana/etc:/etc/grafana
     environment:
-       #GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource,grafana-worldmap-panel,grafana-piechart-panel"
+       GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource,grafana-worldmap-panel,grafana-piechart-panel"
        GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s:%(http_port)s/grafana"
        GF_SERVER_DOMAIN: grafana.$DOMAINNAME
        GF_SERVER_SERVE_FROM_SUB_PATH: 'true'
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=PathPrefixStrip:/grafana"
+     # - "traefik.frontend.rule=PathPrefixStrip:/grafana"
+     # - "traefik.backend=grafana"
       ## HTTP Routers
       - "traefik.http.routers.grafana-rtr.entrypoints=https"
       - "traefik.http.routers.grafana-rtr.rule=Host(`grafana.$DOMAINNAME`)"
       - "traefik.http.routers.grafana-rtr.tls=true"
       ## Middlewares
-      - "traefik.http.routers.grafana-rtr.middlewares=chain-oauth@file,add-grafana"
-      #- "traefik.http.middlewares.add-grafana.stripprefix.prefixes=/grafana"
+      - "traefik.http.routers.grafana-rtr.middlewares=chain-oauth@file"
+      - "traefik.http.middlewares.add-grafana.stripPrefix.prefixes=/grafana"
       ## HTTP Services
       - "traefik.http.routers.grafana-rtr.service=grafana-svc"
       - "traefik.http.services.grafana-svc.loadbalancer.server.port=3000"
