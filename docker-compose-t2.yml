@@ -286,14 +286,15 @@ services:
      # - $DOCKERDIR/grafana/etc:/etc/grafana
     environment:
        #GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource,grafana-worldmap-panel,grafana-piechart-panel"
-       GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s:%(http_port)s/grafana/"
-       GF_SERVER_DOMAIN: grafana.drewbiermann.com
+       GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s:%(http_port)s/grafana"
+       GF_SERVER_DOMAIN: grafana.$DOMAINNAME
        GF_SERVER_SERVE_FROM_SUB_PATH: 'true'
     labels:
       - "traefik.enable=true"
+      - "traefik.frontend.rule=PathPrefixStrip:/grafana"
       ## HTTP Routers
       - "traefik.http.routers.grafana-rtr.entrypoints=https"
-      - "traefik.http.routers.grafana-rtr.rule=Host(`grafana.$DOMAINNAME`) && PathPrefix(`/grafana`)"
+      - "traefik.http.routers.grafana-rtr.rule=Host(`grafana.$DOMAINNAME`)"
       - "traefik.http.routers.grafana-rtr.tls=true"
       ## Middlewares
       - "traefik.http.routers.grafana-rtr.middlewares=chain-oauth@file,add-grafana"
