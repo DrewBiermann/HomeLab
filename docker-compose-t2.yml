@@ -312,7 +312,7 @@ services:
     restart: always
     networks:
       t2_proxy:
-        ipv4_address: 172.18.0.11
+        ipv4_address: 172.18.0.12
     security_opt:
       - no-new-privileges:true
     ports:
