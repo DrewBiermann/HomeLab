@@ -310,11 +310,13 @@ services:
     image: influxdb:latest
     container_name: influxdb
     restart: always
+    networks:
+      t2_proxy:
+        ipv4_address: 172.18.0.11
     security_opt:
       - no-new-privileges:true
     ports:
-      - "$INFLUXDB_PORT:8086"
-      - "$INFLUXDB_PORT_PROXMOX:8087/udp"
+      - "8086:8086"
     volumes:
       - $DOCKERDIR/appdata/influxdb/etc/influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - $DOCKERDIR/appdata/influxdb/db:/var/lib/influxdb
