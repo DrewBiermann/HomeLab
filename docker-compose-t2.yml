@@ -304,3 +304,18 @@ services:
       ## HTTP Services
       - "traefik.http.routers.grafana-rtr.service=grafana-svc"
       - "traefik.http.services.grafana-svc.loadbalancer.server.port=3000"
+ # InfluxDB - Database for sensor data
+  # Create influxdb.conf
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "$INFLUXDB_PORT:8086"
+      - "$INFLUXDB_PORT_PROXMOX:8087/udp"
+    volumes:
+      - $DOCKERDIR/appdata/influxdb/etc/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - $DOCKERDIR/appdata/influxdb/db:/var/lib/influxdb
+    # command: -config /etc/influxdb/influxdb.conf
