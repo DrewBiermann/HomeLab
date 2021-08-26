@@ -323,12 +323,12 @@ services:
     # command: -config /etc/influxdb/influxdb.conf
   # Prometheus time based DB for Grafana
   prometheus:
-    image: prom/prometheus:v2.21.0
+    image: prom/prometheus
     container_name: prometheus
     restart: always
     networks:
-      t2_proxy:
-        ipv4_address: 172.18.0.13
+      - t2_proxy
+        #ipv4_address: 172.18.0.13
     ports:
       - "9090:9090"
     volumes:
