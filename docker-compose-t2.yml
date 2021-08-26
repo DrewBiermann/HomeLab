@@ -323,7 +323,7 @@ services:
     # command: -config /etc/influxdb/influxdb.conf
   # Prometheus time based DB for Grafana
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:latest
     container_name: prometheus
     restart: always
     networks:
