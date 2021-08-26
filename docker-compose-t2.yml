@@ -324,6 +324,7 @@ services:
   # Prometheus time based DB for Grafana
   prometheus:
     image: prom/prometheus:latest
+    user: root
     container_name: prometheus
     restart: always
     networks:
