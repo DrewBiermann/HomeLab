@@ -304,7 +304,7 @@ services:
       ## HTTP Services
       - "traefik.http.routers.grafana-rtr.service=grafana-svc"
       - "traefik.http.services.grafana-svc.loadbalancer.server.port=3000"
- # InfluxDB - Database for sensor data
+ # InfluxDB - Database for sensor data from grafana
   # Create influxdb.conf
   influxdb:
     image: influxdb:latest
@@ -321,3 +321,17 @@ services:
       - $DOCKERDIR/appdata/influxdb/etc/influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - $DOCKERDIR/appdata/influxdb/db:/var/lib/influxdb
     # command: -config /etc/influxdb/influxdb.conf
+  # Prometheus time based DB for Grafana
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: always
+    networks:
+      t2_proxy:
+        ipv4_address: 172.18.0.13
+    ports:
+      - "9000:9090"
+    volumes:
+      - $DOCKERDIR/prometheus:/etc/prometheus
+      - $DOCKERDIR/prometheus/data:/prometheus
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
