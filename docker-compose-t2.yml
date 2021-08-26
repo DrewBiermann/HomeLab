@@ -327,11 +327,11 @@ services:
     container_name: prometheus
     restart: always
     networks:
-      - t2_proxy
-        #ipv4_address: 172.18.0.13
+      t2_proxy:
+        ipv4_address: 172.18.0.13
     ports:
       - "9090:9090"
     volumes:
-      - $DOCKERDIR/prometheus:/etc/prometheus
+      - $DOCKERDIR/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - $DOCKERDIR/prometheus/data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
