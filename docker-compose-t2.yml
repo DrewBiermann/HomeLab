@@ -330,7 +330,7 @@ services:
       t2_proxy:
         ipv4_address: 172.18.0.13
     ports:
-      - "9000:9090"
+      - "9090:9090"
     volumes:
       - $DOCKERDIR/prometheus:/etc/prometheus
       - $DOCKERDIR/prometheus/data:/prometheus
