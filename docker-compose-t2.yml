@@ -231,7 +231,7 @@ services:
     image: pihole/pihole:latest
     dns:
       - 127.0.0.1
-      - 1.1.1.1
+      - 192.168.100.1
     volumes:
       - ${USERDIR}/docker/pihole/pihole:/etc/pihole
 #      - ${USERDIR}/docker/pihole/pihole.log:/var/log/pihole.log
