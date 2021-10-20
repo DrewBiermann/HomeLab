@@ -345,11 +345,12 @@ services:
     networks:
       - t2_proxy
     ports:
-      - 80:8081
+      #- 80:80
     volumes:
       - $DOCKERDIR/nextcloud:/var/www/html
     environment:
       REDIS_HOST: nc-redis
+      NEXTCLOUD_TRUSTED_DOMAIN: nextcloud.$DOMAINNAME
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
@@ -360,7 +361,7 @@ services:
       - "traefik.http.routers.nextcloud-rtr.middlewares=chain-oauth@file,add-nextcloud" 
       ## HTTP Services
       - "traefik.http.routers.nextcloud-rtr.service=nextcloud-svc"
-      - "traefik.http.services.nextcloud-svc.loadbalancer.server.port=8081"
+      - "traefik.http.services.nextcloud-svc.loadbalancer.server.port=80"
   nc-redis:
     image: redis:6.2-alpine
     container_name: nc-redis
