@@ -7,7 +7,9 @@ networks:
       name: t2_proxy
   default:
     driver: bridge
-
+  nextcloud:
+    name: nextcloud
+    driver: bridge
 ########################### SERVICES
 services:
 # All services / apps go below this line
@@ -370,6 +372,6 @@ services:
     hostname: nc-redis
     restart: unless-stopped
     networks:
-      - default
+      - nextcloud
     volumes:
       - $DOCKERDIR/nextcloud/redis:/data
