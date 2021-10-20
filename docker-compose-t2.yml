@@ -372,6 +372,6 @@ services:
     hostname: nc-redis
     restart: unless-stopped
     networks:
-      - nextcloud
+      - t2_proxy
     volumes:
       - $DOCKERDIR/nextcloud/redis:/data
