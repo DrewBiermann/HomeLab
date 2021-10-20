@@ -336,3 +336,37 @@ services:
       - $DOCKERDIR/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - $DOCKERDIR/prometheus/data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+# Nextcloud Docker Application
+  nextcloud:
+    image: nextcloud:21
+    container_name: nextcloud
+    hostname: nextcloud
+    restart: unless-stopped
+    networks:
+      - t2_proxy
+    ports:
+      - 8081:8081
+    volumes:
+      - $DOCKERDIR/nextcloud:/var/www/html
+    environment:
+      REDIS_HOST: nc-redis
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.nextcloud-rtr.entrypoints=https"
+      - "traefik.http.routers.nextcloud-rtr.rule=Host(`nextcloud.$DOMAINNAME`)"
+      - "traefik.http.routers.nextcloud-rtr.tls=true"
+      ## Middlewares
+      - "traefik.http.routers.nextcloud-rtr.middlewares=chain-oauth@file,add-nextcloud" 
+      ## HTTP Services
+      - "traefik.http.routers.nextcloud-rtr.service=guacamole-svc"
+      - "traefik.http.services.nextcloud-svc.loadbalancer.server.port=8081"
+  nc-redis:
+    image: redis:6.2-alpine
+    container_name: nc-redis
+    hostname: nc-redis
+    restart: unless-stopped
+    networks:
+      - t2_proxy
+    volumes:
+      - $DOCKERDIR/nextcloud/redis:/data
