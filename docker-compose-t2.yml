@@ -346,7 +346,7 @@ services:
     restart: unless-stopped
     networks:
       - t2_proxy
-      - default
+      - nextcloud
     #ports:
       #- 80:80
     volumes:
