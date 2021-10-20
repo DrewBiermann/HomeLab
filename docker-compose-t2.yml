@@ -345,7 +345,7 @@ services:
     networks:
       - t2_proxy
     ports:
-      - 8081:8081
+      - 8081:80
     volumes:
       - $DOCKERDIR/nextcloud:/var/www/html
     environment:
@@ -359,7 +359,7 @@ services:
       ## Middlewares
       - "traefik.http.routers.nextcloud-rtr.middlewares=chain-oauth@file,add-nextcloud" 
       ## HTTP Services
-      - "traefik.http.routers.nextcloud-rtr.service=guacamole-svc"
+      - "traefik.http.routers.nextcloud-rtr.service=nextcloud-svc"
       - "traefik.http.services.nextcloud-svc.loadbalancer.server.port=8081"
   nc-redis:
     image: redis:6.2-alpine
