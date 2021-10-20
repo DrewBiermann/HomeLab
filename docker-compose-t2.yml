@@ -347,8 +347,8 @@ services:
     networks:
       - t2_proxy
       - nextcloud
-    #ports:
-      #- 80:80
+    ports:
+      - 8081:80
     volumes:
       - $DOCKERDIR/nextcloud:/var/www/html
     environment:
