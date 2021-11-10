@@ -340,7 +340,7 @@ services:
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
 # Nextcloud Docker Application
   nextcloud:
-    image: nextcloud:21
+    image: nextcloud:bier
     container_name: nextcloud
     hostname: nextcloud
     restart: unless-stopped
