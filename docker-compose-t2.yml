@@ -351,7 +351,7 @@ services:
     #  - 8081:80
     volumes:
       - $DOCKERDIR/nextcloud:/var/www/html
-      #- $DOCKERDIR/nextcloud/samba:/etc/samba
+      - $DOCKERDIR/nextcloud-samba:/etc/samba
     environment:
       REDIS_HOST: nc-redis
       NEXTCLOUD_TRUSTED_DOMAIN: nextcloud.$DOMAINNAME
