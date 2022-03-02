@@ -376,3 +376,38 @@ services:
       - t2_proxy
     volumes:
       - $DOCKERDIR/nextcloud/redis:/data
+#munki
+  munki:
+    image: nginx
+    restart: always
+    container_name: webserver
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - $DOCKERDIR/nginx/munki_repo.conf:/etc/nginx/conf.d/default.conf:ro
+      - $DOCKERDIR/munki_repo:/var/www/repo
+      - $DOCKERDIR/nginx/nginx.htpasswd:/var/www/nginx.htpasswd
+      - $DOCKERDIR/nginx/logs:/var/log/nginx
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.munki-rtr.entrypoints=https"
+      - "traefik.http.routers.munki-rtr.rule=Host(`munki.$DOMAINNAME`)"
+      - "traefik.http.routers.munki-rtr.tls=true"
+      ## Middlewares
+      #- "traefik.http.routers.nextcloud-rtr.middlewares=chain-oauth@file" 
+      ## HTTP Services
+      - "traefik.http.routers.munki-rtr.service=pihole-svc"
+      - "traefik.http.services.munki-svc.loadbalancer.server.port=80" 
+  webdav:
+    image: xama/nginx-webdav
+    restart: always
+    container_name: webdavserver
+    ports:
+      - 8181:80
+    environment:
+      - WEBDAV_USERNAME=UserName
+      - WEBDAV_PASSWORD=UserPassword
+    volumes:
+      - $DOCKERDIR/munki_repo:/var/webdav/public
