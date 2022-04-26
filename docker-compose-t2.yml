@@ -238,7 +238,7 @@ services:
       - ${USERDIR}/docker/pihole/pihole:/etc/pihole
 #      - ${USERDIR}/docker/pihole/pihole.log:/var/log/pihole.log
       - ${USERDIR}/docker/pihole/dnsmasq.d:/etc/dnsmasq.d
-      - ${USERDIR}/docker/pihole/etc-pihole-updatelists/:/etc/pihole-updatelists/
+      - ${USERDIR}/docker/pihole/etc-pihole-updatelists/:/etc/pihole-updatelists
     ports:
       - '0.0.0.0:53:53/tcp'
       - '0.0.0.0:53:53/udp'
