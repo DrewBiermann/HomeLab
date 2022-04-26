@@ -230,7 +230,7 @@ services:
     container_name: pihole
     domainname: docker
     restart: unless-stopped
-    image: pihole/pihole:latest
+    image: jacklul/pihole:latest
     dns:
       - 127.0.0.1
       - 192.168.100.1
@@ -238,6 +238,7 @@ services:
       - ${USERDIR}/docker/pihole/pihole:/etc/pihole
 #      - ${USERDIR}/docker/pihole/pihole.log:/var/log/pihole.log
       - ${USERDIR}/docker/pihole/dnsmasq.d:/etc/dnsmasq.d
+      - ${USERDIR}/docker/pihole/etc-pihole-updatelists/:/etc/pihole-updatelists/
     ports:
       - '0.0.0.0:53:53/tcp'
       - '0.0.0.0:53:53/udp'
